@@ -17,41 +17,35 @@
                 </div>
             </div>
             <div class="max-w-2xl overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
-                <table class="divide-y divide-gray-300">
-                    <thead class="bg-gray-50">
+                <table class="table w-full">
+                    <thead>
                     <tr>
-                        <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Nome</th>
-                        <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Preço</th>
-                        <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Quantidade
-                        </th>
-                        <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-6">
-                            <span class="sr-only">Editar</span>
-                        </th>
-                        <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-6">
-                            <span class="sr-only">Deletar</span>
-                        </th>
+                        <th scope="col" class="px-4 py-2">Nome</th>
+                        <th scope="col" class="px-4 py-2">Preço</th>
+                        <th scope="col" class="px-4 py-2">Quantidade</th>
+                        <th scope="col" class="px-4 py-2">Ações</th>
                     </tr>
                     </thead>
-                    <tbody class="bg-white divide-y divide-gray-200">
-                    @foreach ($products as $product)
+                    <tbody>
+                    @foreach($products as $product)
                         <tr>
-                            <td class="py-4 pl-4 pr-3 text-sm font-medium text-gray-900 whitespace-nowrap sm:pl-6">{{ $product->name }}</td>
-                            <td class="px-3 py-4 text-sm text-gray-500 whitespace-nowrap">{{ 'R$ ' . number_format($product->price, 2, ',', '.') }}</td>
-                            <td class="px-3 py-4 text-sm text-gray-500 whitespace-nowrap">{{ $product->amount }}</td>
-                            <td class="relative py-4 pl-3 pr-4 text-sm font-medium text-right whitespace-nowrap sm:pr-6">
-                                <a href="{{ route('products.edit', $product->id) }}"
-                                   class="text-indigo-600 hover:text-indigo-900">Editar</a>
-                            </td>
-                            <td class="relative py-4 pl-3 pr-4 text-sm font-medium text-right whitespace-nowrap sm:pr-6">
-                                <form action="{{ route('products.destroy', $product->id) }}" method="post">
-                                    @csrf
-                                    @method("DELETE")
-                                    <button type="submit">Deletar</button>
-                                </form>
+                            <td class="px-4 py-2">{{ $product->name }}</td>
+                            <td class="px-4 py-2">{{ $product->price }}</td>
+                            <td class="px-4 py-2">{{ $product->amount }}</td>
+                            <td class="px-4 py-2">
+                                <div class="flex">
+                                    <a href="{{ route('products.edit', $product->id) }}"
+                                       class="btn btn-primary btn-sm me-2">Editar</a>
+                                    <form action="{{ route('products.destroy', $product->id) }}" method="post"
+                                          class="inline">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-primary btn-sm me-2">Excluir</button>
+                                    </form>
+                                </div>
                             </td>
                         </tr>
                     @endforeach
-                    <!-- More people... -->
                     </tbody>
                 </table>
             </div>
