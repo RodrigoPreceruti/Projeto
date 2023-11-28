@@ -3,13 +3,21 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Repository\Interfaces\Eloquent\ProductRepositoryInterface;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
+
+    public function __construct(
+        protected ProductRepositoryInterface $repository
+    )
+    {
+    }
+
     public function index()
     {
-        $products = Product::paginate(10);
+        $products = $this->repository->all();
 
         return view('products.index', [
             'products' => $products
@@ -23,7 +31,7 @@ class ProductController extends Controller
 
     public function store(Request $request)
     {
-        Product::create($request->all());
+        $this->repository->create($request->all());
 
         return redirect()->route('products.index');
     }
@@ -35,16 +43,16 @@ class ProductController extends Controller
         ]);
     }
 
-    public function update(Request $request, Product $product)
+    public function update(Request $request, string $id)
     {
-        $product->update($request->all());
+        $this->repository->update($id, $request->all());
 
         return redirect()->route('products.index');
     }
 
-    public function destroy(Product $product)
+    public function destroy(string $id)
     {
-        $product->delete();
+        $this->repository->delete($id);
 
         return redirect()->route('products.index');
     }

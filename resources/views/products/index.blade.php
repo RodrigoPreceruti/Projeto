@@ -30,7 +30,7 @@
                     @foreach($products as $product)
                         <tr>
                             <td class="px-4 py-2">{{ $product->name }}</td>
-                            <td class="px-4 py-2">{{ $product->price }}</td>
+                            <td class="px-4 py-2">{{ 'R$ ' . number_format($product->price, 2, ',', '.') }}</td>
                             <td class="px-4 py-2">{{ $product->amount }}</td>
                             <td class="px-4 py-2">
                                 <div class="flex">
@@ -49,7 +49,7 @@
                     </tbody>
                 </table>
             </div>
-            {{ $products->links() }}
+{{--            {{ $products->links() }}--}}
         </div>
 
     </div>
