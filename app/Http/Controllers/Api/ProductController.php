@@ -3,8 +3,9 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreProductRequest;
+use App\Http\Requests\UpdateProductRequest;
 use App\Models\Product;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 class ProductController extends Controller
@@ -16,7 +17,7 @@ class ProductController extends Controller
         return $products;
     }
 
-    public function store(Request $request)
+    public function store(StoreProductRequest $request)
     {
         $product = Product::create($request->all());
 
@@ -34,7 +35,7 @@ class ProductController extends Controller
         return $product;
     }
 
-    public function update(Request $request, Product $product)
+    public function update(UpdateProductRequest $request, Product $product)
     {
         if (!$product) {
             return response()->json([
